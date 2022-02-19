@@ -1,0 +1,36 @@
+import random
+vinster = 0
+förluster = 0
+totalaChanser = 0
+
+def simulera(testa, antalgånger):
+    global vinster
+    global förluster
+    for i in range(0, antalgånger):
+        dörrar = ["bil", "get1", "get2"]
+        random.shuffle(dörrar)
+        val = random.choice(dörrar)
+        if testa == "Y" or testa == "y":
+            if val == "bil":
+                förluster += 1
+            else:
+                vinster += 1
+        else:
+            if val == "bil":
+                vinster += 1
+            else:
+                förluster += 1
+
+test = input("Byta? Y/N: ")
+antal = int(input("Ange antal simuleringar: "))
+for i in range(0,10):
+    simulera(test, antal)
+    chans = vinster / antal
+    with open("resultat.txt", "a", encoding="UTF-8") as f:
+        f.write("Vinster: " + str(vinster) + ", antal förluster: " + str(
+            förluster) + ", " + "Chansen att vinna var: " + str(chans) + "\n")
+        print("Vinster: " + str(vinster) + ", antal förluster: " + str(
+            förluster) + ", " + "Chansen att vinna var: " + str(chans) + "\n")
+    vinster = 0
+    förluster = 0
+    totalaChanser += chans
